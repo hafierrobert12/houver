@@ -1,154 +1,77 @@
-function toggleMenu(){
+const hamburger=document.getElementById("hamburger")
+const nav=document.getElementById("nav")
 
-let menu=document.getElementById("sideMenu");
+hamburger.onclick=()=>{
 
-if(menu.style.right=="0px"){
-menu.style.right="-250px";
-}else{
-menu.style.right="0px";
-}
+nav.classList.toggle("show")
 
-}
-
-
-
-function scrollToSection(id){
-
-document.getElementById(id).scrollIntoView({
-behavior:"smooth"
-});
-
-toggleMenu();
-
-}
-
-
-
-function openLogin(){
-document.getElementById("loginModal").style.display="flex";
-}
-
-
-
-function closeLogin(){
-document.getElementById("loginModal").style.display="none";
 }
 
 
 
 const quotes=[
 
-"Literature is the most agreeable way of ignoring life. — Fernando Pessoa",
+"There is no friend as loyal as a book. — Ernest Hemingway",
 
-"A room without books is like a body without a soul. — Cicero",
+"Not all those who wander are lost. — J.R.R. Tolkien",
 
-"Painting is silent poetry. — Plutarch",
+"A reader lives a thousand lives before he dies.",
 
-"There is no friend as loyal as a book. — Ernest Hemingway"
+"The only thing you absolutely have to know is the location of the library."
 
-];
+]
 
-let randomQuote=quotes[Math.floor(Math.random()*quotes.length)];
+document.getElementById("dailyQuote").innerText=
 
-document.getElementById("dailyQuote").innerText=randomQuote;
+quotes[Math.floor(Math.random()*quotes.length)]
 
 
 
-function openBook(title,desc){
+const slides=document.getElementById("slides")
 
-document.getElementById("bookModal").style.display="flex";
+document.getElementById("right").onclick=()=>{
 
-document.getElementById("bookTitle").innerText=title;
+slides.scrollLeft+=300
 
-document.getElementById("bookDesc").innerText=desc;
+}
+
+document.getElementById("left").onclick=()=>{
+
+slides.scrollLeft-=300
 
 }
 
 
 
-function closeBook(){
+const bookSlides=document.getElementById("bookSlides")
 
-document.getElementById("bookModal").style.display="none";
+document.getElementById("bookRight").onclick=()=>{
+
+bookSlides.scrollLeft+=300
+
+}
+
+document.getElementById("bookLeft").onclick=()=>{
+
+bookSlides.scrollLeft-=300
 
 }
 
 
 
-function addPost(){
+document.getElementById("postBtn").onclick=()=>{
 
-let username=document.getElementById("username").value;
+const name=document.getElementById("username").value
+const message=document.getElementById("message").value
 
-let content=document.getElementById("postContent").value;
+if(name==""||message=="") return
 
-if(content=="") return;
+const post=document.createElement("p")
 
-if(username==""){
+post.innerHTML="<b>"+name+"</b>: "+message
 
-let anonNames=[
-"SilentReader",
-"VelvetVerse",
-"MoonlitPoet",
-"InkDrifter",
-"LibraryGhost"
-];
+document.getElementById("posts").appendChild(post)
 
-username=anonNames[Math.floor(Math.random()*anonNames.length)];
-
-}
-
-let post=document.createElement("div");
-
-post.className="post";
-
-post.innerHTML=
-
-`
-<b>${username}</b>
-<p>${content}</p>
-
-<div class="post-actions">
-
-<span onclick="likePost(this)">❤️ 0</span>
-
-<span onclick="replyPost(this)">Reply</span>
-
-</div>
-
-<div class="replies"></div>
-`;
-
-document.getElementById("posts").prepend(post);
-
-document.getElementById("postContent").value="";
-
-}
-
-
-
-function likePost(el){
-
-let num=parseInt(el.innerText.split(" ")[1]);
-
-num++;
-
-el.innerText="❤️ "+num;
-
-}
-
-
-
-function replyPost(el){
-
-let text=prompt("Write a reply:");
-
-if(!text) return;
-
-let reply=document.createElement("p");
-
-reply.style.marginLeft="20px";
-
-reply.innerText=text;
-
-el.parentElement.nextElementSibling.appendChild(reply);
+document.getElementById("message").value=""
 
 }
